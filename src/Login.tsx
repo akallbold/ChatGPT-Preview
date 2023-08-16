@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAuthentication from "./hooks/useAuthentication";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";

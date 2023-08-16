@@ -10,8 +10,7 @@ import useConversationContext from "../hooks/useConversationContext";
 
 export default function SystemPersonality() {
   const [otherValue, setOtherValue] = React.useState("");
-  const { context, addResponseToContext, personality, setPersonality } =
-    useConversationContext();
+  const { personality, setPersonality } = useConversationContext();
 
   const handleChange = (event) => {
     setPersonality(event.target.value);
