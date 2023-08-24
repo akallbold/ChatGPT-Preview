@@ -6,7 +6,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export default function LeftPanel() {
   const [userInput, setUserInput] = useState("");
-  const [result, setResult] = useState();
   const [temperature] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -43,8 +42,6 @@ export default function LeftPanel() {
         );
       }
       const textResult = data.choices[0].message;
-      setResult(textResult.content);
-      addResponseToContext(currentUserInput);
       addResponseToContext(textResult);
       setUserInput("");
       setLoading(false);
@@ -54,20 +51,30 @@ export default function LeftPanel() {
     }
   }
 
-  return (
-    <Grid
-      container
-      p={3}
-      flexDirection="column"
-      sx={
-        {
-          // height: "50%"
-          // width: "100%",
-        }
+  const renderConversation = () => {
+    // eslint-disable-next-line array-callback-return
+    return context.map((message) => {
+      if (message.role !== "system") {
+        return (
+          <Grid p={1}>
+            <Typography variant="caption">
+              {message.role.toLocaleUpperCase()}
+            </Typography>
+            <Typography variant={message.role === "user" ? "body2" : "body1"}>
+              {message.content}
+            </Typography>
+          </Grid>
+        );
       }
-      display="flex"
-      // justifyContent="space-between"
-    >
+    });
+  };
+
+  return (
+    <Grid container p={3} flexDirection="column" display="flex">
+      <Grid>
+        {context && renderConversation()}
+        {loading && <CircularProgress />}
+      </Grid>
       <Grid p={1} display="flex">
         <TextField
           variant="outlined"
@@ -86,24 +93,12 @@ export default function LeftPanel() {
             padding: "0",
           }}
         >
-          Ask Assistant
+          Submit
         </Button>
-        {loading && <CircularProgress />}
-        {result && <Typography>{result}</Typography>}
       </Grid>
       <Grid>
-        <Button
-          variant="contained"
-          onClick={removeContext}
-          sx={
-            {
-              // width: "20%",
-              // margin: "0.5rem",
-              // padding: "0.5rem",
-            }
-          }
-        >
-          Start over and remove context
+        <Button variant="contained" onClick={removeContext}>
+          Remove context
         </Button>
       </Grid>
     </Grid>

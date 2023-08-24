@@ -27,7 +27,6 @@ function useConversationContext() {
   const [otherValue, setOtherValue] = React.useState("");
 
   const addResponseToContext = (response) => {
-    // this currently only adds the AI response to the context. make sure to also add the user's prompt upon successful response from AI.
     setContext((prevContext) => [...prevContext, response]);
     console.log("This is what context looks like after adding: ", { context });
   };
