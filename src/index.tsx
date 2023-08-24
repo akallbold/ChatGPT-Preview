@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
@@ -13,11 +15,13 @@ const root = ReactDOM.createRoot(
 
 if (clientId) {
   root.render(
-    <GoogleOAuthProvider clientId={clientId}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </GoogleOAuthProvider>
+    <ThemeProvider theme={theme}>
+      <GoogleOAuthProvider clientId={clientId}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </GoogleOAuthProvider>
+    </ThemeProvider>
   );
 } else {
   alert(
