@@ -21,7 +21,11 @@ export default function LeftPanel() {
     if (context.length) {
       context.push(currentUserInput);
     }
-    const body = { messages: context, temperature, model: "gpt-3.5-turbo" };
+    const body = {
+      messages: context,
+      temperature,
+      model: "gpt-3.5-turbo",
+    };
 
     try {
       const response = await fetch(completionApiUrl, {

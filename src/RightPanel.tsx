@@ -1,23 +1,29 @@
-import { useState } from "react";
-import Temperature from "./components/Temperature";
-import SystemPersonality from "./components/SystemPersonality";
+import Temperature from "./options/Temperature";
+import SystemPersonality from "./options/SystemPersonality";
 import { Grid, Typography } from "@mui/material";
 import OptionsWidget from "./OptionsWidget";
+import GeneralInfo from "./options/GeneralInfo";
+import N from "./options/N";
+import MaxTokens from "./options/MaxTokens";
 
 export default function RightPanel() {
-  const [temperature, setTemperature] = useState(1);
-
   return (
     <Grid container>
       <Typography variant="h2">Options</Typography>
-      <OptionsWidget>
-        <Temperature
-          temperature={temperature}
-          setTemperature={setTemperature}
-        />
+      <OptionsWidget option="temperature">
+        <Temperature />
+      </OptionsWidget>
+      <OptionsWidget option="systemPersonality">
+        <SystemPersonality />
+      </OptionsWidget>
+      <OptionsWidget option="n">
+        <N />
+      </OptionsWidget>
+      <OptionsWidget option="maxTokens">
+        <MaxTokens />
       </OptionsWidget>
       <OptionsWidget>
-        <SystemPersonality />
+        <GeneralInfo />
       </OptionsWidget>
     </Grid>
   );
