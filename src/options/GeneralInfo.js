@@ -16,13 +16,13 @@ export default function GeneralInfo() {
         </a>
         . This list isn't meant to be comprehensive.
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      {/* <Typography variant="body1" gutterBottom>
         I also created{" "}
         <a href="" target="_blank" rel="noreferrer">
           swagger documentation
         </a>{" "}
         if that's more your style.
-      </Typography>
+      </Typography> */}
     </Box>
   );
 }
