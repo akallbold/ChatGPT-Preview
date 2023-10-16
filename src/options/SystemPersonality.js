@@ -11,10 +11,8 @@ import useConversationContext from "../hooks/useConversationContext";
 export default function SystemPersonality() {
   const [otherValue, setOtherValue] = React.useState("");
   const { personality, setPersonality } = useConversationContext();
+  console.log({ personality });
 
-  const handleChange = (event) => {
-    setPersonality(event.target.value);
-  };
   return (
     <Box sx={{ width: 300 }}>
       <FormControl>
@@ -25,7 +23,9 @@ export default function SystemPersonality() {
           aria-labelledby="demo-controlled-radio-buttons-group"
           name="controlled-radio-buttons-group"
           value={personality}
-          onChange={handleChange}
+          onChange={(event) => {
+            setPersonality(event.target.value);
+          }}
         >
           <FormControlLabel
             value="neutral"

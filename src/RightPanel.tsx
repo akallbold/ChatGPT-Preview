@@ -1,10 +1,11 @@
 import Temperature from "./options/Temperature";
-import SystemPersonality from "./options/SystemPersonality";
+// import SystemPersonality from "./options/SystemPersonality";
 import { Grid, Typography } from "@mui/material";
 import OptionsWidget from "./OptionsWidget";
-import GeneralInfo from "./options/GeneralInfo";
+// import GeneralInfo from "./options/GeneralInfo";
 import N from "./options/N";
 import MaxTokens from "./options/MaxTokens";
+import TopP from "./options/TopP";
 
 export default function RightPanel() {
   return (
@@ -13,8 +14,8 @@ export default function RightPanel() {
       <OptionsWidget option="temperature">
         <Temperature />
       </OptionsWidget>
-      <OptionsWidget option="systemPersonality">
-        <SystemPersonality />
+      <OptionsWidget option="topp">
+        <TopP />
       </OptionsWidget>
       <OptionsWidget option="n">
         <N />
@@ -22,9 +23,13 @@ export default function RightPanel() {
       <OptionsWidget option="maxTokens">
         <MaxTokens />
       </OptionsWidget>
-      <OptionsWidget>
+      {/*  <OptionsWidget option="systemPersonality" alwaysSelected>
+        <SystemPersonality />
+      </OptionsWidget>*/}
+      {/*  tweak this one because it doesn't need the stuff like the others do */}
+      {/* <OptionsWidget option="general">
         <GeneralInfo />
-      </OptionsWidget>
+      </OptionsWidget> */}
     </Grid>
   );
 }

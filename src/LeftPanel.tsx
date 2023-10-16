@@ -1,18 +1,38 @@
+// @ts-nocheck
+
 import { useState } from "react";
 import useConversationContext from "./hooks/useConversationContext";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { completionApiUrl } from "./data/constants";
 import CircularProgress from "@mui/material/CircularProgress";
+import useOptions from "./hooks/useOptions";
 
 export default function LeftPanel() {
   const [userInput, setUserInput] = useState("");
-  const [temperature] = useState(1);
+  const { optionsObject } = useOptions();
   const [loading, setLoading] = useState(false);
 
   const { context, addResponseToContext, removeContext } =
     useConversationContext();
 
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+  const setupOptions = () => {
+    let output = {};
+    // TODO: whats the best way to do this? dynamically get keys
+    // debugger;
+    if (
+      optionsObject["temperature"].value &&
+      optionsObject["temperature"].selected
+    )
+      output["temperature"] = optionsObject.temperature.value;
+    if (optionsObject["temperature"]) output["topp"] = optionsObject.topp;
+    if (optionsObject["temperature"])
+      output["systemPersonality"] = optionsObject.systemPersonality;
+    if (optionsObject["temperature"]) output["n"] = optionsObject.n;
+    if (optionsObject["temperature"])
+      output["maxTokens"] = optionsObject.maxTokens;
+    return output;
+  };
 
   async function onSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -21,10 +41,13 @@ export default function LeftPanel() {
     if (context.length) {
       context.push(currentUserInput);
     }
+
+    const optionsForRequest = setupOptions();
+
     const body = {
       messages: context,
-      temperature,
       model: "gpt-3.5-turbo",
+      ...optionsForRequest,
     };
 
     try {

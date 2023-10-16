@@ -1,18 +1,27 @@
 import { TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import useOptions from "../hooks/useOptions";
 
 export default function MaxTokens() {
-  const [maxTokens, setMaxTokens] = useState(10);
-
+  const { optionsObject, setOptionsObject } = useOptions();
+  const maxTokensProperties = optionsObject.maxTokens;
+  console.log({ maxTokensProperties });
   return (
     <Box sx={{ width: 300 }}>
-      <label>{`Max Tokens: ${maxTokens}`}</label>
+      <label>{`Max Tokens: ${maxTokensProperties.value}`}</label>
       <TextField
         variant="outlined"
         placeholder="Enter text here"
-        value={maxTokens}
-        onChange={(e) => setMaxTokens(e.target.value)}
+        value={maxTokensProperties.value}
+        onChange={(e) => {
+          setOptionsObject({
+            ...optionsObject,
+            maxTokens: {
+              value: e.target.value,
+              selected: maxTokensProperties.selected,
+            },
+          });
+        }}
       />
 
       <Typography variant="body1" gutterBottom>

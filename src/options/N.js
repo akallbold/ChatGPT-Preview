@@ -1,23 +1,30 @@
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { useState } from "react";
+import useOptions from "../hooks/useOptions";
 
 export default function N() {
-  const [n, setN] = useState(1);
-
+  const { optionsObject, setOptionsObject } = useOptions();
+  const nProperties = optionsObject.n;
+  console.log({ nProperties }, nProperties.selected);
   return (
     <Box sx={{ width: 300 }}>
-      <Typography variant="body1">{`N: ${n}`}</Typography>
+      <Typography variant="body1">{`N: ${nProperties.value}`}</Typography>
       <Slider
         aria-label="N"
-        defaultValue={n}
-        value={n}
+        defaultValue={nProperties.value}
+        value={nProperties.value}
         step={1}
         min={0}
         max={3}
         onChange={(_, value) => {
-          setN(value);
+          setOptionsObject({
+            ...optionsObject,
+            n: {
+              value: value,
+              selected: nProperties.selected,
+            },
+          });
         }}
       />
 
